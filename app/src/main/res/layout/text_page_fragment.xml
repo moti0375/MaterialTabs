@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.TextPageFragment"
+    android:background="@color/textPageBackground"
     android:padding="@dimen/activity_horizontal_margin">
 
 
@@ -14,6 +15,7 @@
         android:layout_below="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:textColor="@color/textColorPrimary"/>
 
 </RelativeLayout>

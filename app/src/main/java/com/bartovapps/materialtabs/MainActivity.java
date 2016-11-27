@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.bartovapps.materialtabs.adapters.ViewPagerAdapter;
 import com.bartovapps.materialtabs.fragments.ImagePageFragment;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar mToolbar;
     ViewPager mPager;
 
-    private int [] tabIcons = {
+    private int[] tabIcons = {
             R.drawable.ic_favorite,
             R.drawable.ic_call,
             R.drawable.ic_contacts
@@ -35,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_notabs_main);
         setViews();
 
@@ -44,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViews() {
-        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        mPager = (ViewPager)findViewById(R.id.pager);
+        mPager = (ViewPager) findViewById(R.id.pager);
 //        setTabsIcons();
 
     }
@@ -72,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     private void setViewPager(List<BasePage> pages) {
-        CirclePageIndicator lineIndicator = (CirclePageIndicator)findViewById(R.id.titles);
+        CirclePageIndicator lineIndicator = (CirclePageIndicator) findViewById(R.id.pageIndicator);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        for(BasePage page: pages){
-            if(page instanceof TextPage){
+        for (BasePage page : pages) {
+            if (page instanceof TextPage) {
                 TextPageFragment textPageFragment = new TextPageFragment();
                 Bundle b = new Bundle();
                 b.putString(Utils.JSON_TITLE, page.getTitle());
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 adapter.addFragment(textPageFragment);
             }
 
-            if(page instanceof ImagePage){
+            if (page instanceof ImagePage) {
                 ImagePageFragment imagePageFragment = new ImagePageFragment();
                 Bundle b = new Bundle();
                 b.putString(Utils.JSON_TITLE, page.getTitle());
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class LoadContentTask extends AsyncTask<String, Void, List<BasePage>>{
+    class LoadContentTask extends AsyncTask<String, Void, List<BasePage>> {
 
         @Override
         protected List<BasePage> doInBackground(String... strings) {
